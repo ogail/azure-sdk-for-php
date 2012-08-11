@@ -196,7 +196,16 @@ class ServiceManagementRestProxy extends RestProxy
         $path = "services/hostedservices/$name/deployments";
         return $this->_getPath($path, $deploymentName);
     }
-    
+
+    /**
+     * Gets path for role instance.
+     * 
+     * @param string               $name     The hosted service name.
+     * @param GetDeploymentOptions $options  The optional parameters.
+     * @param string               $roleName The role instance name.
+     * 
+     * @return string
+     */
     private function _getRoleInstancePath($name, $options, $roleName)
     {
         $path = $this->_getDeploymentPath($name, $options) . '/roleinstances';
@@ -1500,5 +1509,74 @@ class ServiceManagementRestProxy extends RestProxy
         $response = $this->sendContext($context);
         
         return AsynchronousOperationResult::create($response->getHeader());
+    }
+    
+    /**
+     * Lists all of the service certificates associated with the specified hosted 
+     * service. 
+     * 
+     * @param string $name The hosted service name.
+     * 
+     * @return ListHostedServiceCertificatesResult
+     * 
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460788
+     */
+    public function listServiceCertificates($name)
+    {
+        throw new \Exception(Resources::NOT_IMPLEMENTED_MSG);
+    }
+    
+    /**
+     * Returns the public data for the specified X.509 certificate associated with a
+     * hosted service. 
+     * 
+     * @param string $name                The hosted service name.
+     * @param string $thumbprintAlgorithm The thumbprint algorithm (like SHA1).
+     * @param string $thumbprint          The certificate in hexadecimal.
+     * 
+     * @return GetHostedServiceCertificateResult
+     * 
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460792
+     */
+    public function getServiceCertificate($name, $thumbprintAlgorithm, $thumbprint)
+    {
+        throw new \Exception(Resources::NOT_IMPLEMENTED_MSG);
+    }
+    
+    /**
+     * Adds a certificate to a hosted service.
+     * 
+     * Note that the only supported certificate format is pfx.
+     * 
+     * @param string $name     The hosted service name.
+     * @param string $data     The base-64 encoded form of the pfx file.
+     * @param string $password The certificate password.
+     * 
+     * @return AsynchronousOperationResult
+     * 
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460817
+     */
+    public function addServiceCertificate($name, $data, $password)
+    {
+        throw new \Exception(Resources::NOT_IMPLEMENTED_MSG);
+    }
+    
+    /**
+     * Deletes a service certificate from the certificate store of a hosted service.
+     * 
+     * @param string $name                The hosted service name.
+     * @param string $thumbprintAlgorithm The thumbprint algorithm (like SHA1).
+     * @param string $thumbprint          The certificate in hexadecimal.
+     * 
+     * @return AsynchronousOperationResult
+     * 
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460803
+     */
+    public function deleteServiceCertificate(
+        $name,
+        $thumbprintAlgorithm,
+        $thumbprint
+    ) {
+        throw new \Exception(Resources::NOT_IMPLEMENTED_MSG);
     }
 }
