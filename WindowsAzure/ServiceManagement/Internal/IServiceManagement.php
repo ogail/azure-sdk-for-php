@@ -556,7 +556,7 @@ interface IServiceManagement extends FilterableService
      * 
      * @param string $name The hosted service name.
      * 
-     * @return ListHostedServiceCertificatesResult
+     * @return ListServiceCertificatesResult
      * 
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460788
      */
@@ -570,7 +570,7 @@ interface IServiceManagement extends FilterableService
      * @param string $thumbprintAlgorithm The thumbprint algorithm (like SHA1).
      * @param string $thumbprint          The certificate in hexadecimal.
      * 
-     * @return GetHostedServiceCertificateResult
+     * @return GetServiceCertificateResult
      * 
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460792
      */

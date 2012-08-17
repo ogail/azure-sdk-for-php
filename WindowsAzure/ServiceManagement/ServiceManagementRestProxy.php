@@ -51,6 +51,7 @@ use WindowsAzure\ServiceManagement\Models\CreateDeploymentOptions;
 use WindowsAzure\ServiceManagement\Models\GetDeploymentResult;
 use WindowsAzure\ServiceManagement\Models\DeploymentStatus;
 use WindowsAzure\ServiceManagement\Models\Mode;
+use WindowsAzure\ServiceManagement\Models\ListServiceCertificatesResult;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for service 
@@ -167,6 +168,19 @@ class ServiceManagementRestProxy extends RestProxy
     private function _getHostedServicePath($name = null)
     {
         return $this->_getPath('services/hostedservices', $name);
+    }
+    
+    /**
+     * Constructs URI path for service certificate.
+     * 
+     * @param string $name The hosted service name.
+     * 
+     * @return string
+     */
+    private function _getServiceCertificatePath($name = null)
+    {
+        $path = $this->_getHostedServicePath($name);
+        return $path . '/certificates';
     }
     
     /**
@@ -1517,13 +1531,21 @@ class ServiceManagementRestProxy extends RestProxy
      * 
      * @param string $name The hosted service name.
      * 
-     * @return ListHostedServiceCertificatesResult
+     * @return ListServiceCertificatesResult
      * 
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460788
      */
     public function listServiceCertificates($name)
     {
-        throw new \Exception(Resources::NOT_IMPLEMENTED_MSG);
+        $context = new HttpCallContext();
+        $context->setMethod(Resources::HTTP_GET);
+        $context->setPath($this->_getServiceCertificatePath($name));
+        $context->addStatusCode(Resources::STATUS_OK);
+        
+        $response   = $this->sendContext($context);
+        $serialized = $this->dataSerializer->unserialize($response->getBody());
+        
+        return ListServiceCertificatesResult::create($serialized);
     }
     
     /**
@@ -1534,7 +1556,7 @@ class ServiceManagementRestProxy extends RestProxy
      * @param string $thumbprintAlgorithm The thumbprint algorithm (like SHA1).
      * @param string $thumbprint          The certificate in hexadecimal.
      * 
-     * @return GetHostedServiceCertificateResult
+     * @return GetServiceCertificateResult
      * 
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee460792
      */

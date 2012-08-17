@@ -107,6 +107,50 @@ class TestResources
         return $connectionString;
     }
     
+    public static function serviceManagementPfxCertificateThumbprintAlgorithm()
+    {
+        $name = getenv('SERVICE_MANAGEMENT_PFX_CERTIFICATE_THUMBPRINT_ALGORITHM');
+        
+        if (empty($name)) {
+            throw new \Exception('SERVICE_MANAGEMENT_PFX_CERTIFICATE_THUMBPRINT_ALGORITHM envionment variable is missing');
+        }
+        
+        return $name;
+    }
+    
+    public static function serviceManagementPfxCertificateThumbprint()
+    {
+        $name = getenv('SERVICE_MANAGEMENT_PFX_CERTIFICATE_THUMBPRINT');
+        
+        if (empty($name)) {
+            throw new \Exception('SERVICE_MANAGEMENT_PFX_CERTIFICATE_THUMBPRINT envionment variable is missing');
+        }
+        
+        return $name;
+    }
+    
+    public static function serviceManagementPfxCertificatePassword()
+    {
+        $name = getenv('SERVICE_MANAGEMENT_PFX_CERTIFICATE_PASSWORD');
+        
+        if (empty($name)) {
+            throw new \Exception('SERVICE_MANAGEMENT_PFX_CERTIFICATE_PASSWORD envionment variable is missing');
+        }
+        
+        return $name;
+    }
+    
+    public static function serviceManagementPfxCertificatePath()
+    {
+        $name = getenv('SERVICE_MANAGEMENT_PFX_CERTIFICATE_PATH');
+        
+        if (empty($name)) {
+            throw new \Exception('SERVICE_MANAGEMENT_PFX_CERTIFICATE_PATH envionment variable is missing');
+        }
+        
+        return $name;
+    }
+    
     public static function simplePackageUrl()
     {
         $name = getenv('SERVICE_MANAGEMENT_SIMPLE_PACKAGE_URL');

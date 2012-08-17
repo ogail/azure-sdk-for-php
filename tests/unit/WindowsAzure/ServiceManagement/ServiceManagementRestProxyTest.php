@@ -1233,4 +1233,49 @@ class ServiceManagementRestProxyTest extends ServiceManagementRestProxyTestBase
         $deployment = $result->getDeployment(); 
         $this->assertCount($expectedInstanceCount, $deployment->getRoleInstanceList());
     }
+    
+    /**
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::listServiceCertificates
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::_getServiceCertificatePath
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::_getPath
+     * @covers WindowsAzure\ServiceManagement\Models\ListServiceCertificatesResult::create
+     * @covers WindowsAzure\ServiceManagement\Models\ServiceCertificate::create
+     * @group ServiceCertificates
+     */
+    public function testListServiceCertificatesEmpty()
+    {
+        // Setup
+        $name = 'testListServiceCertificatesEmpty';
+        $this->createHostedService($name);
+        
+         // Test
+        $result = $this->restProxy->listServiceCertificates($name);
+        
+        // Assert
+        $this->assertNotNull($result);
+        $this->assertCount(0, $result->getServiceCertificates());
+    }
+    
+    /**
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::listServiceCertificates
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::_getServiceCertificatePath
+     * @covers WindowsAzure\ServiceManagement\ServiceManagementRestProxy::_getPath
+     * @covers WindowsAzure\ServiceManagement\Models\ListServiceCertificatesResult::create
+     * @covers WindowsAzure\ServiceManagement\Models\ServiceCertificate::create
+     * @group ServiceCertificates
+     */
+    public function testListServiceCertificatesNotEmpty()
+    {
+        // Setup
+        $name = 'testListServiceCertificatesNotEmpty';
+        $this->createHostedService($name);
+        $this->addCertificate($name);
+        
+         // Test
+        $result = $this->restProxy->listServiceCertificates($name);
+        
+        // Assert
+        $this->assertNotNull($result);
+        $this->assertCount(1, $result->getServiceCertificates());
+    }
 }
